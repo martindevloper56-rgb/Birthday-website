@@ -78,8 +78,20 @@ animation:fall 5s linear infinite;
 </style></head><body><h1>🎂 Happy Birthday Soma ❤️</h1><button onclick="start()">Start Your Surprise</button>
 
 <div id="gift" onclick="showCake()">🎁</div><div id="cake" onclick="openLetter()">🎂</div><div id="letter"></div><audio id="song" controls>
-<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_3c8fa7b6c4.mp3" type="audio/mpeg">
-</audio><canvas id="stars"></canvas>
+<source src="https://files.catbox.moe/1c2v9s.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+function start(){
+document.querySelector("button").style.display="none";
+document.getElementById("gift").style.display="block";
+
+var music = document.getElementById("song");
+music.play();
+
+heartRain();
+}
+</script><canvas id="stars"></canvas>
 
 <script>
 
@@ -215,3 +227,4 @@ setTimeout(()=>spark.remove(),800);
 
 </script></body>
 </html>
+

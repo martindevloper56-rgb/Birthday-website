@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Happy Birthday Samyyi ❤️</title><style>
+<title>Happy Birthday Soma ❤️</title><style>
 
 body{
 margin:0;
@@ -65,7 +65,7 @@ white-space:pre-line;
 
 .heart{
 position:fixed;
-font-size:22px;
+font-size:24px;
 color:red;
 animation:fall 5s linear infinite;
 }
@@ -75,38 +75,26 @@ animation:fall 5s linear infinite;
 100%{transform:translateY(110vh);}
 }
 
-</style></head><body><h1>🎂 Happy Birthday Soma ❤️</h1><button onclick="start()">Start Your Surprise</button>
-
-<div id="gift" onclick="showCake()">🎁</div><div id="cake" onclick="openLetter()">🎂</div><div id="letter"></div><audio id="song" controls>
-  <source src="song.mp3" type="audio/mpeg">
-</audio>
-
-<script>
-document.addEventListener("click", function(){
-  var audio = document.getElementById("song");
-  audio.play();
-});
-</script>
-  
-
-<script>
-function start(){
-document.querySelector("button").style.display="none";
-document.getElementById("gift").style.display="block";
-
-var music = document.getElementById("song");
-music.play();
-
-heartRain();
+.explode{
+position:fixed;
+font-size:30px;
+animation:boom 1s forwards;
 }
-</script><canvas id="stars"></canvas>
+
+@keyframes boom{
+0%{transform:scale(0);}
+100%{transform:scale(3); opacity:0;}
+}
+
+</style></head><body><h1>🎂 Happy Birthday Soma ❤️</h1><button onclick="start()">Start Surprise</button>
+
+<div id="gift" onclick="showCake()">🎁</div><div id="cake" onclick="cutCake()">🎂</div><div id="letter"></div><canvas id="stars"></canvas>
 
 <script>
 
 function start(){
 document.querySelector("button").style.display="none";
 document.getElementById("gift").style.display="block";
-document.getElementById("song").play();
 heartRain();
 }
 
@@ -115,39 +103,35 @@ document.getElementById("gift").style.display="none";
 document.getElementById("cake").style.display="block";
 }
 
-function openLetter(){
+function cutCake(){
 
-document.getElementById("cake").style.display="none";
+heartExplosion();
 
 const text=`My Dearest Soma ❤️
 
-The moment you entered my life,
-everything became brighter and more beautiful.
+The day you came into my life,
+everything started feeling magical.
 
-Your smile is my favorite sight,
-your voice is my favorite sound,
-and your happiness means everything to me.
+Your smile brightens my darkest days,
+and your presence makes my world complete.
 
-Today is the birthday of the most special girl
-who makes my world magical.
+This one year of friendship with you
+has been one of the most beautiful parts of my life.
 
-I am grateful for every moment
-we have spent together in this one year of friendship.
-
-You are my happiness,
-my peace,
-and the most beautiful part of my life.
+You are special,
+you are amazing,
+and you deserve all the happiness in the world.
 
 💖 Happy Birthday Soma 💖
 
-I promise to always care for you,
-support you,
-and stand beside you forever.
+May your life always be filled
+with love, joy and success.
 
-Forever Yours ❤️`;
+Forever grateful for you ❤️`;
 
 let i=0;
 let letter=document.getElementById("letter");
+
 letter.style.display="block";
 
 function typing(){
@@ -160,6 +144,7 @@ setTimeout(typing,40);
 
 typing();
 fireworks();
+
 }
 
 function heartRain(){
@@ -168,10 +153,21 @@ let heart=document.createElement("div");
 heart.className="heart";
 heart.innerHTML="❤️";
 heart.style.left=Math.random()*100+"vw";
-heart.style.fontSize=(Math.random()*20+20)+"px";
 document.body.appendChild(heart);
 setTimeout(()=>heart.remove(),5000);
 },300);
+}
+
+function heartExplosion(){
+for(let i=0;i<30;i++){
+let h=document.createElement("div");
+h.className="explode";
+h.innerHTML="💖";
+h.style.left=Math.random()*window.innerWidth+"px";
+h.style.top=Math.random()*window.innerHeight+"px";
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),1000);
+}
 }
 
 const canvas=document.getElementById("stars");
@@ -182,7 +178,7 @@ canvas.height=window.innerHeight;
 
 let stars=[];
 
-for(let i=0;i<250;i++){
+for(let i=0;i<200;i++){
 stars.push({
 x:Math.random()*canvas.width,
 y:Math.random()*canvas.height,
@@ -191,7 +187,6 @@ size:Math.random()*2
 }
 
 function drawStars(){
-
 ctx.clearRect(0,0,canvas.width,canvas.height);
 ctx.fillStyle="white";
 
@@ -206,11 +201,44 @@ requestAnimationFrame(drawStars);
 
 drawStars();
 
+setInterval(()=>{
+
+let star=document.createElement("div");
+
+star.style.position="fixed";
+star.style.width="2px";
+star.style.height="80px";
+star.style.background="white";
+
+star.style.left=Math.random()*window.innerWidth+"px";
+star.style.top="-100px";
+
+star.style.transform="rotate(45deg)";
+star.style.opacity="0.8";
+
+document.body.appendChild(star);
+
+let pos=0;
+
+let fall=setInterval(()=>{
+
+pos+=20;
+star.style.top=pos+"px";
+
+if(pos>window.innerHeight){
+clearInterval(fall);
+star.remove();
+}
+
+},30);
+
+},1500);
+
 function fireworks(){
 
 setInterval(()=>{
 
-for(let i=0;i<30;i++){
+for(let i=0;i<25;i++){
 
 let spark=document.createElement("div");
 
@@ -235,8 +263,3 @@ setTimeout(()=>spark.remove(),800);
 
 </script></body>
 </html>
-
-
-
-
-

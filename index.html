@@ -6,16 +6,16 @@
 body{
 margin:0;
 padding:0;
-height:100vh;
 overflow:hidden;
-background:black;
-color:white;
 font-family:Arial;
+color:white;
+text-align:center;
+background:black;
+height:100vh;
 display:flex;
+flex-direction:column;
 justify-content:center;
 align-items:center;
-flex-direction:column;
-text-align:center;
 }
 
 canvas{
@@ -27,8 +27,8 @@ z-index:-1;
 
 h1{
 font-size:50px;
-color:#ff4da6;
-text-shadow:0 0 20px pink;
+color:#ff66cc;
+text-shadow:0 0 25px pink;
 }
 
 button{
@@ -43,10 +43,16 @@ margin-top:20px;
 }
 
 #gift{
-font-size:60px;
-margin-top:20px;
-cursor:pointer;
+font-size:70px;
 display:none;
+cursor:pointer;
+margin-top:20px;
+}
+
+#cake{
+font-size:80px;
+display:none;
+cursor:pointer;
 }
 
 #letter{
@@ -57,47 +63,70 @@ margin-top:20px;
 white-space:pre-line;
 }
 
-</style></head><body><h1>🎂 Happy Birthday Soma ❤️</h1><button onclick="showGift()">Click For Surprise 🎁</button>
+.heart{
+position:fixed;
+font-size:22px;
+color:red;
+animation:fall 5s linear infinite;
+}
 
-<div id="gift" onclick="openLetter()">🎁</div><div id="letter"></div><!-- SONG --><iframe width="0" height="0"
-src="https://www.youtube.com/embed/GxldQ9eX2wo?autoplay=1&loop=1&playlist=GxldQ9eX2wo"
-allow="autoplay">
-</iframe><canvas id="stars"></canvas>
+@keyframes fall{
+0%{transform:translateY(-10vh);}
+100%{transform:translateY(110vh);}
+}
+
+</style></head><body><h1>🎂 Happy Birthday Soma ❤️</h1><button onclick="start()">Start Your Surprise</button>
+
+<div id="gift" onclick="showCake()">🎁</div><div id="cake" onclick="openLetter()">🎂</div><div id="letter"></div><audio id="song" controls>
+<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_3c8fa7b6c4.mp3" type="audio/mpeg">
+</audio><canvas id="stars"></canvas>
 
 <script>
 
-function showGift(){
+function start(){
 document.querySelector("button").style.display="none";
 document.getElementById("gift").style.display="block";
+document.getElementById("song").play();
+heartRain();
+}
+
+function showCake(){
+document.getElementById("gift").style.display="none";
+document.getElementById("cake").style.display="block";
 }
 
 function openLetter(){
 
-document.getElementById("gift").style.display="none";
+document.getElementById("cake").style.display="none";
 
-const text = `My Dearest Soma ❤️
+const text=`My Dearest Soma ❤️
 
-From the moment you came into my life,
-everything started feeling more beautiful.
+The moment you entered my life,
+everything became brighter and more beautiful.
 
-Your smile lights up my darkest days,
-and your presence makes my world complete.
+Your smile is my favorite sight,
+your voice is my favorite sound,
+and your happiness means everything to me.
 
-Today is not just your birthday…
-it is the day the most special person in my life was born.
+Today is the birthday of the most special girl
+who makes my world magical.
 
-Thank you for being my best friend,
-my happiness, and the reason behind my smiles.
+I am grateful for every moment
+we have spent together in this one year of friendship.
 
-I promise to always stay with you,
-support you, and love you more with every passing day.
+You are my happiness,
+my peace,
+and the most beautiful part of my life.
 
-💖 Happy Birthday My Love Soma 💖
+💖 Happy Birthday Soma 💖
+
+I promise to always care for you,
+support you,
+and stand beside you forever.
 
 Forever Yours ❤️`;
 
 let i=0;
-let speed=50;
 let letter=document.getElementById("letter");
 letter.style.display="block";
 
@@ -105,14 +134,24 @@ function typing(){
 if(i<text.length){
 letter.innerHTML+=text.charAt(i);
 i++;
-setTimeout(typing,speed);
+setTimeout(typing,40);
 }
 }
 
 typing();
-
 fireworks();
+}
 
+function heartRain(){
+setInterval(()=>{
+let heart=document.createElement("div");
+heart.className="heart";
+heart.innerHTML="❤️";
+heart.style.left=Math.random()*100+"vw";
+heart.style.fontSize=(Math.random()*20+20)+"px";
+document.body.appendChild(heart);
+setTimeout(()=>heart.remove(),5000);
+},300);
 }
 
 const canvas=document.getElementById("stars");
@@ -123,7 +162,7 @@ canvas.height=window.innerHeight;
 
 let stars=[];
 
-for(let i=0;i<200;i++){
+for(let i=0;i<250;i++){
 stars.push({
 x:Math.random()*canvas.width,
 y:Math.random()*canvas.height,
@@ -132,8 +171,8 @@ size:Math.random()*2
 }
 
 function drawStars(){
-ctx.clearRect(0,0,canvas.width,canvas.height);
 
+ctx.clearRect(0,0,canvas.width,canvas.height);
 ctx.fillStyle="white";
 
 stars.forEach(star=>{
@@ -153,24 +192,24 @@ setInterval(()=>{
 
 for(let i=0;i<30;i++){
 
-let div=document.createElement("div");
+let spark=document.createElement("div");
 
-div.style.position="fixed";
-div.style.width="6px";
-div.style.height="6px";
-div.style.background="red";
-div.style.borderRadius="50%";
+spark.style.position="fixed";
+spark.style.width="6px";
+spark.style.height="6px";
+spark.style.background="yellow";
+spark.style.borderRadius="50%";
 
-div.style.left=Math.random()*window.innerWidth+"px";
-div.style.top=Math.random()*window.innerHeight+"px";
+spark.style.left=Math.random()*window.innerWidth+"px";
+spark.style.top=Math.random()*window.innerHeight+"px";
 
-document.body.appendChild(div);
+document.body.appendChild(spark);
 
-setTimeout(()=>div.remove(),1000);
+setTimeout(()=>spark.remove(),800);
 
 }
 
-},500);
+},400);
 
 }
 
